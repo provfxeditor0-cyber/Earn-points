@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro SEO Generator · YouTube/Insta/FB</title>
+    
+    <!-- FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- === FIXED AD SCRIPT (always present) === -->
+    <script src="https://pl28429274.effectivegatecpm.com/a0/34/21/a0342166e2530539295a4706d13f5639.js"></script>
+
+    <style>
+        :root {
+            --primary: #ff0050; /* TikTok/YouTube Hybrid Red */
+            --accent: #00f2ea;  /* Cyber Cyan */
+            --bg-dark: #0f0f0f;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --success: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 80, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 242, 234, 0.15) 0%, transparent 40%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px 100px; /* bottom padding for fixed nav */
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px 30px 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.6s ease-out;
+            margin-bottom: 20px;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* Categories */
+        .grid-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .cat-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cat-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 0, 80, 0.4);
+            color: white;
+        }
+
+        /* Generate Button – moved UPPER (less space from bottom) */
+        .show-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent) 0%, #00c2bb 100%);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 242, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: -5px;        /* pulled upward */
+            margin-bottom: 30px;     /* extra space above results */
+        }
+
+        .show-btn:disabled {
+            background: #222;
+            color: #555;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .show-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Results Area */
+        .results-container {
+            display: none;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+        }
+
+        .result-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .card-header {
+            background: rgba(255,255,255,0.03);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .copy-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+            color: black;
+        }
+
+        .card-content {
+            padding: 20px;
+            font-size: 0.95rem;
+            color: #ddd;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: 'Consolas', 'Monaco', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Scrollbar */
+        .card-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .card-content::-webkit-scrollbar-track {
+            background: #111;
+        }
+        .card-content::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .timer-info {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* ===== FIXED BOTTOM NAVIGATION – 3 PLATFORMS ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0 12px;
+            z-index: 9999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.7);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn i {
+            font-size: 1.9rem;
+        }
+
+        .nav-btn.active {
+            color: var(--accent);
+            background: rgba(0, 242, 234, 0.1);
+            text-shadow: 0 0 8px rgba(0,242,234,0.5);
+        }
+
+        .nav-btn:hover {
+            color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* platform-specific active glow */
+        .nav-btn[data-platform="youtube"].active i { color: #ff0000; text-shadow: 0 0 12px #ff0000; }
+        .nav-btn[data-platform="instagram"].active i { color: #e4405f; text-shadow: 0 0 12px #e4405f; }
+        .nav-btn[data-platform="facebook"].active i { color: #1877f2; text-shadow: 0 0 12px #1877f2; }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container { padding: 20px; }
+            .nav-btn i { font-size: 1.6rem; }
+            .nav-btn { padding: 6px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MAIN GENERATOR CARD -->
+    <div class="container">
+        <header>
+            <h1>SEO <span>MASTER</span></h1>
+            <p id="platformIndicator">⚡ YouTube Mode – Viral Titles + Desc + Tags</p>
+        </header>
+
+        <!-- Niche categories (same for all platforms) -->
+        <div class="grid-label">Select a Niche</div>        
+        <div class="categories" id="categoryList"></div>
+
+        <!-- Generate button (moved upper) -->
+        <button id="showBtn" class="show-btn" disabled>
+            Generate Content <i class="fa-solid fa-bolt"></i>
+        </button>
+
+        <!-- RESULTS SECTION – 3 cards, but Instagram/Facebook hide desc & tags cards -->
+        <div class="results-container" id="resultsArea">
+            
+            <!-- TITLE CARD – used by ALL platforms (for Insta/FB it contains long title + hashtags) -->
+            <div class="result-card" id="titleCard">
+                <div class="card-header">
+                    <span class="card-label"><i class="fa-solid fa-heading"></i> <span id="titleLabel">Optimized Title</span></span>
+                    <button class="copy-btn" onclick="copyText('titleOutput', this)">
+                        <i class="fa-regular fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="card-content" id="titleOutput"></div>
+            </div>
+
+            <!-- DESCRIPTION CARD (only for YouTube) -->
+            <div class="result-card" id="descCard">
+                <div class="card-header">
+                    <span class="card-label"><i class="fa-solid fa-align-left"></i> Description + Hashtags</span>
+                    <button class="copy-btn" onclick="copyText('descOutput', this)">
+                        <i class="fa-regular fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="card-content" id="descOutput"></div>
+            </div>
+
+            <!-- TAGS CARD (only for YouTube) -->
+            <div class="result-card" id="tagsCard">
+                <div class="card-header">
+                    <span class="card-label"><i class="fa-solid fa-tags"></i> Viral Tags</span>
+                    <button class="copy-btn" onclick="copyText('tagsOutput', this)">
+                        <i class="fa-regular fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="card-content" id="tagsOutput"></div>
+            </div>
+
+            <div class="timer-info">
+                <i class="fa-solid fa-rotate"></i> Content auto-refreshes every 10 minutes for uniqueness.
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FIXED BOTTOM NAVIGATION – YOUTUBE · INSTAGRAM · FACEBOOK ===== -->
+    <div class="bottom-nav">
+        <button class="nav-btn active" data-platform="youtube" id="navYt">
+            <i class="fab fa-youtube"></i>
+            <span>YouTube</span>
+        </button>
+        <button class="nav-btn" data-platform="instagram" id="navIg">
+            <i class="fab fa-instagram"></i>
+            <span>Instagram</span>
+        </button>
+        <button class="nav-btn" data-platform="facebook" id="navFb">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook</span>
+        </button>
+    </div>
+
+    <script>
+        // ---------- AD TRIGGER (on every click: niche, generate, copy) ----------
+        function fireAd() {
+            // POPUNDER / AD URL – required on every interactive element
+            window.open('https://www.effectivegatecpm.com/chn529mqq?key=e43f100690669e24e1f98d64eb3f1982', '_blank');
+        }
+
+        // ---------- SEODATA (unchanged, rich database) ----------
+        const seoData = {
+            "FUNNY": [
+                {
+                    title: "TRY NOT TO LAUGH: Impossible Challenge (99% FAIL) 💀",
+                    desc: "Welcome to the hardest Try Not To Laugh challenge ever! In this video, I have compiled the funniest clips, memes, and fails from around the internet. If you laugh, you lose!\n\n👇 IN THIS VIDEO:\n0:00 Intro\n1:23 The Cat Fail\n3:45 Don't do this at home\n8:00 The Winner\n\nMake sure to subscribe if you want to see more funny reactions and challenges. Comment below your timestamp if you laughed!\n\n🔴 SUBSCRIBE FOR MORE LAUGHS: [Insert Link]\n\n#funny #trynottolaugh #comedy #memes #fails #humor #funnyvideo #challenge #reaction",
+                    tags: "funny, try not to laugh, comedy, funny videos, memes, damp memes, laughter, challenge, funny moments, viral, trending"
+                },
+                {
+                    title: "Funniest Fails of The Year - Ultimate Compilation 😂",
+                    desc: "You won't believe these fails! Watch the ultimate compilation of the funniest moments caught on camera this year. From epic pranks to accidental slips, this video has it all.\n\n🔥 SUPPORT THE CHANNEL:\nLike this video if you enjoyed it!\nSubscribe and hit the bell 🔔\n\nFollow me on Instagram: @[YourHandle]\n\n#fails #funnyfails #compilation #comedy #pranks #lol #failvideo #epicfails #humor #entertainment",
+                    tags: "fails, funny fails, compilation, comedy, pranks, lol, failarmy, epic fails, humor, entertainment"
+                }
+            ],
+            "GAMING": [
+                {
+                    title: "10 Pro Tips to DOMINATE in [Game Name] 🎮",
+                    desc: "Are you stuck in low elo? Watch this guide to learn 10 pro tips and tricks that will instantly improve your gameplay. We cover movement, aim, and strategy.\n\n🕹️ MY SETUP:\nMouse: [Link]\nKeyboard: [Link]\nHeadset: [Link]\n\nJoin our Discord server to play with us: [Discord Link]\n\nThanks for watching! Don't forget to like and subscribe for more gaming tutorials.\n\n#gaming #protips #gameplay #gamer #gamingcommunity #esports #tutorial #walkthrough #letsplay #gaminglife",
+                    tags: "gaming, pro tips, gameplay, walkthrough, lets play, gamer, online games, strategy, gaming guide, fps, rpg"
+                },
+                {
+                    title: "The HARDEST Boss Fight in Gaming History? (Full Gameplay) 🕹️",
+                    desc: "Watch as I attempt the no-damage run on the hardest boss in the game. This took me 50 attempts! \n\n👀 WATCH NEXT:\n> Best Gaming Moments 2024\n> Speedrun World Record\n\nIf you enjoyed this intense gameplay, please drop a like!\n\n#bossfight #gaming #speedrun #hardcore #gamer #playthrough #streamer #twitch #gameplay #epicmoments",
+                    tags: "bossfight, gaming, speedrun, hardcore, gamer, playthrough, streamer, twitch, gameplay, epic moments"
+                }
+            ],
+            "ENTERTAINMENT": [
+                {
+                    title: "Top 10 Mind-Blowing Facts About [Topic] 🤯",
+                    desc: "Get ready to have your mind blown! Today we are counting down the top 10 most amazing facts about [Topic] that you probably didn't know.\n\nTIMESTAMPS:\n0:00 Intro\n0:45 Fact #10\n2:30 Fact #5 (Shocking!)\n8:15 The Number 1 Fact\n\nWhich fact surprised you the most? Let me know in the comments below!\n\n#facts #top10 #entertainment #mindblowing #amazing #didyouknow #interesting #viral #trending #education",
+                    tags: "facts, top10, entertainment, mindblowing, amazing, didyouknow, interesting, viral, trending, education"
+                }
+            ],
+            "PEOPLE AND BLOG": [
+                {
+                    title: "Day In My Life: Productive Morning Routine ☀️",
+                    desc: "Good morning! Come spend a productive day with me. I'm sharing my 5 AM morning routine, healthy breakfast recipes, and how I organize my day for success.\n\n☕ ITEMS MENTIONED:\n- Planner: [Link]\n- Coffee Machine: [Link]\n\nDon't forget to subscribe to join the family! We post new vlogs every week.\n\n#dayinmylife #vlog #morningroutine #productivity #lifestyle #peopleandblogs #dailyvlog #routine #wellness #aesthetic",
+                    tags: "dayinmylife, vlog, morning routine, productivity, lifestyle, people and blogs, daily vlog, routine, wellness, aesthetic"
+                }
+            ],
+            "ANIMATION": [
+                {
+                    title: "My Embarrassing School Story (Animated) 🎨",
+                    desc: "You asked for it, so here is the story of my most embarrassing moment in high school! I spent 2 weeks animating this, so I hope you enjoy the suffering.\n\n✏️ TOOLS USED:\n- Tablet: Wacom\n- Software: Adobe Animate\n\nCheck out my merch store: [Link]\n\n#animation #storytime #art #cartoon #digitalart #drawing #animator #funny #storytimeanimation #creative",
+                    tags: "animation, storytime, art, cartoon, digitalart, drawing, animator, funny, storytime animation, creative"
+                }
+            ],
+            "COMEDY": [
+                {
+                    title: "If Real Life Was Like A Video Game 🤣",
+                    desc: "Imagine if we had HP bars and inventory slots in real life! Watch this sketch to see how chaotic it would be.\n\nCAST:\nPlayer 1: [Name]\nNPC: [Name]\n\nSubscribe for new sketches every Friday! 🔔\n\n#comedy #sketch #skit #relatable #humor #funnyvideo #parody #acting #comedyshorts #funny",
+                    tags: "comedy, sketch, skit, relatable, humor, funny video, parody, acting, comedy shorts, funny"
+                }
+            ],
+            "EDUCATION": [
+                {
+                    title: "How To Learn Anything 10x Faster 🧠",
+                    desc: "Do you want to study smarter, not harder? In this video, I explain the science behind rapid skill acquisition and memory retention techniques.\n\n📚 RESOURCES:\n- Notion Template: [Link]\n- Study Music Playlist: [Link]\n\nSubscribe for more educational content and study tips!\n\n#education #learning #studytips #productivity #school #science #howto #tutorial #selfimprovement #knowledge",
+                    tags: "education, learning, study tips, productivity, school, science, how to, tutorial, self improvement, knowledge"
+                }
+            ],
+            "MUSIC": [
+                {
+                    title: "Chill Lofi Beats to Study/Relax To 🎵",
+                    desc: "The perfect background music for studying, working, or sleeping. Enjoy this 1-hour mix of chill lofi hip hop beats.\n\n🎧 TRACKLIST:\n1. Rainy Days - [Artist]\n2. Coffee Shop - [Artist]\n3. Midnight Walk - [Artist]\n\nAll music rights belong to the respective artists. \n\n#lofi #music #chill #beats #study #relax #hiphop #instrumental #backgroundmusic #aesthetic",
+                    tags: "lofi, music, chill, beats, study, relax, hip hop, instrumental, background music, aesthetic"
+                }
+            ],
+            "TECHNOLOGY": [
+                {
+                    title: "The TRUTH About the New iPhone 16... 📱",
+                    desc: "Is the new iPhone actually worth the upgrade? I bought it so you don't have to. Here is my honest, unfiltered review after 1 week of use.\n\n📋 SPECS:\n- Camera: 48MP\n- Battery: 4000mAh\n\nDrop a comment: Android or iOS? 👇\n\n#tech #review #iphone #apple #technology #unboxing #gadgets #smartphone #techreview #android",
+                    tags: "tech, review, iphone, apple, technology, unboxing, gadgets, smartphone, tech review, android"
+                }
+            ]
+        };
+
+        // ---------- GLOBAL REFERENCES ----------
+        const categories = Object.keys(seoData);
+        let selectedCategory = null;
+        let currentPlatform = 'youtube';   // default = YouTube (full features)
+
+        const categoryListEl = document.getElementById('categoryList');
+        const showBtn = document.getElementById('showBtn');
+        const resultsArea = document.getElementById('resultsArea');
+        const titleOutput = document.getElementById('titleOutput');
+        const descOutput = document.getElementById('descOutput');
+        const tagsOutput = document.getElementById('tagsOutput');
+        const platformIndicator = document.getElementById('platformIndicator');
+        // Cards for hide/show
+        const descCard = document.getElementById('descCard');
+        const tagsCard = document.getElementById('tagsCard');
+        const titleLabel = document.getElementById('titleLabel');
+
+        // ---------- HELPER: Format Hashtags for INSTA/FB ----------
+        function formatHashtags(tagString) {
+            if (!tagString) return '#viral #trending';
+            return tagString.split(',').map(t => '#' + t.trim().replace(/\s+/g, '')).join(' ');
+        }
+
+        // ---------- UPDATE UI BASED ON PLATFORM (show/hide cards, labels) ----------
+        function setPlatform(platform) {
+            currentPlatform = platform;
+            
+            // update nav active states
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.nav-btn[data-platform="${platform}"]`).classList.add('active');
+
+            // update header text and card labels
+            if (platform === 'youtube') {
+                platformIndicator.innerText = '⚡ YouTube Mode – Full SEO: Title + Description + Tags';
+                titleLabel.innerText = 'Optimized Title';
+                descCard.style.display = 'block';
+                tagsCard.style.display = 'block';
+            } else {
+                // INSTAGRAM or FACEBOOK → only TITLE card (combined long title + hashtags)
+                platformIndicator.innerText = platform === 'instagram' 
+                    ? '📸 Instagram Mode – Long Caption + Hashtags' 
+                    : '👍 Facebook Mode – Engaging Title + Hashtags';
+                titleLabel.innerText = platform === 'instagram' ? 'Instagram Caption + Hashtags' : 'Facebook Title & Hashtags';
+                descCard.style.display = 'none';
+                tagsCard.style.display = 'none';
+            }
+
+            // hide previous results when switching platform
+            resultsArea.style.display = 'none';
+        }
+
+        // ---------- PLATFORM SWITCHING (bottom nav) ----------
+        document.getElementById('navYt').addEventListener('click', () => setPlatform('youtube'));
+        document.getElementById('navIg').addEventListener('click', () => setPlatform('instagram'));
+        document.getElementById('navFb').addEventListener('click', () => setPlatform('facebook'));
+
+        // ---------- GENERATE CATEGORY BUTTONS (with AD on click) ----------
+        categories.forEach(cat => {
+            const btn = document.createElement('div');
+            btn.innerText = cat;
+            btn.className = 'cat-btn';
+            btn.onclick = (e) => {
+                fireAd();   // <-- AD ON NICHE SELECT
+                // remove active from all
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedCategory = cat;
+                showBtn.disabled = false;
+                resultsArea.style.display = 'none';  // reset view
+            };
+            categoryListEl.appendChild(btn);
+        });
+
+        // ---------- GENERATE BUTTON (with AD) ----------
+        showBtn.addEventListener('click', () => {
+            fireAd();   // <-- AD ON GENERATE
+
+            if (!selectedCategory) return;
+
+            // 10-min rotation algorithm
+            const now = Date.now();
+            const timeBlock = Math.floor(now / (10 * 60 * 1000)); // 10 minutes
+            const dataArray = seoData[selectedCategory] || seoData['ENTERTAINMENT'];
+            const index = timeBlock % dataArray.length;
+            const result = dataArray[index];
+
+            // make sure card visibility matches current platform
+            if (currentPlatform === 'youtube') {
+                descCard.style.display = 'block';
+                tagsCard.style.display = 'block';
+                // YOUTUBE: full details
+                titleOutput.innerText = result.title;
+                descOutput.innerText = result.desc;
+                tagsOutput.innerText = result.tags || "viral, trending, video, youtube";
+            } else {
+                // INSTAGRAM or FACEBOOK: ONLY title card with LONG TITLE + HASHTAGS
+                descCard.style.display = 'none';
+                tagsCard.style.display = 'none';
+                const hashtagsFormatted = formatHashtags(result.tags);
+                // Combine: catchy title + line break + relevant hashtags
+                titleOutput.innerText = `${result.title}\n\n📌 Hashtags:\n${hashtagsFormatted}`;
+            }
+
+            resultsArea.style.display = 'flex';
+            resultsArea.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ---------- ROBUST COPY FUNCTION + AD ON COPY ----------
+        function copyText(elementId, btnElement) {
+            fireAd();   // <-- AD ON EVERY COPY
+
+            const textToCopy = document.getElementById(elementId).innerText;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => triggerCopyEffect(btnElement))
+                    .catch(() => fallbackCopy(textToCopy, btnElement));
+            } else {
+                fallbackCopy(textToCopy, btnElement);
+            }
+        }
+
+        function fallbackCopy(text, btnElement) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) triggerCopyEffect(btnElement);
+            } catch (err) {
+                console.error('Copy failed', err);
+                alert("Please manually copy the text.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function triggerCopyEffect(btn) {
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+
+        // Make copyText global for onclick attributes
+        window.copyText = copyText;
+
+        // ---------- INITIAL PLATFORM = YOUTUBE (default) ----------
+        setPlatform('youtube');
+
+        // ---------- AD SCRIPT ALREADY IN HEAD (provided), but we also fire URL on clicks.
+        // The script is present, and fireAd() opens the URL. Double coverage.
+    </script>
+</body>
+</html>
