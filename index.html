@@ -398,9 +398,9 @@
     </div>
 
     <script>
-        // ---------- AD TRIGGER (on every click: niche, generate, copy) ----------
+        // ---------- AD TRIGGER (only on niche select & generate – COPY IS EXCLUDED) ----------
         function fireAd() {
-            // POPUNDER / AD URL – required on every interactive element
+            // POPUNDER / AD URL – opens on category click & generate, NOT on copy
             window.open('https://www.effectivegatecpm.com/chn529mqq?key=e43f100690669e24e1f98d64eb3f1982', '_blank');
         }
 
@@ -545,7 +545,7 @@
             btn.innerText = cat;
             btn.className = 'cat-btn';
             btn.onclick = (e) => {
-                fireAd();   // <-- AD ON NICHE SELECT
+                fireAd();   // <-- AD ON NICHE SELECT (REMAINS)
                 // remove active from all
                 document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -558,7 +558,7 @@
 
         // ---------- GENERATE BUTTON (with AD) ----------
         showBtn.addEventListener('click', () => {
-            fireAd();   // <-- AD ON GENERATE
+            fireAd();   // <-- AD ON GENERATE (REMAINS)
 
             if (!selectedCategory) return;
 
@@ -590,10 +590,9 @@
             resultsArea.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // ---------- ROBUST COPY FUNCTION + AD ON COPY ----------
+        // ---------- COPY FUNCTION – NO AD TRIGGER (user can copy freely) ----------
         function copyText(elementId, btnElement) {
-            fireAd();   // <-- AD ON EVERY COPY
-
+            // ***** AD REMOVED FROM COPY – per user request *****
             const textToCopy = document.getElementById(elementId).innerText;
             
             if (navigator.clipboard && window.isSecureContext) {
@@ -640,8 +639,7 @@
         // ---------- INITIAL PLATFORM = YOUTUBE (default) ----------
         setPlatform('youtube');
 
-        // ---------- AD SCRIPT ALREADY IN HEAD (provided), but we also fire URL on clicks.
-        // The script is present, and fireAd() opens the URL. Double coverage.
+        // ---------- AD SCRIPT ALREADY IN HEAD (provided) – no changes ----------
     </script>
 </body>
 </html>
